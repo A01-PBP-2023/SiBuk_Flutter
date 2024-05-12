@@ -1,4 +1,4 @@
-# SiBuk (Siap berBuka)
+# SiBuk Mobile (Siap Berbuka Mobile)
 
 ## 🎉 Anggota Kelompok A1
 * 👩‍🦰 [Gistela Namasya Sinurat](https://github.com/GistelaS) (2306335594)
@@ -10,7 +10,7 @@
 ## Tautan Aplikasi
 
 ## 📒 Tentang Aplikasi
-Aplikasi “SiBuk” adalah solusi praktis bagi para pengguna yang ingin menemukan makanan dan minuman berbuka puasa yang sesuai dengan selera dan preferensi mereka. Asal nama SiBuk adalah singkatan yang diambil dari Siap berBuka dan juga bisa Silahkan berBuka. Dari penamaan tersebut mengandung arti dimana pengguna dapat menjadi bersiap dan tidak perlu ‘sibuk’ lagi dalam memilih makanan atau minuman berbuka yang akan dinikmati karena kami telah menyediakan list dari makanan dan minuman berbuka yang dapat diandalkan. Berikut cerita aplikasi ini dan manfaatnya:
+Aplikasi “SiBuk” mobile adalah solusi praktis bagi para pengguna yang ingin menemukan makanan dan minuman berbuka puasa yang sesuai dengan selera dan preferensi mereka. Asal nama SiBuk adalah singkatan yang diambil dari Siap berBuka dan juga bisa Silahkan berBuka. Dari penamaan tersebut mengandung arti dimana pengguna dapat menjadi bersiap dan tidak perlu ‘sibuk’ lagi dalam memilih makanan atau minuman berbuka yang akan dinikmati karena kami telah menyediakan list dari makanan dan minuman berbuka yang dapat diandalkan. Berikut cerita aplikasi ini dan manfaatnya:
 
 ### Cerita Aplikasi:
 SiBuk lahir dari keinginan untuk memudahkan orang-orang dalam mencari makanan berbuka puasa. Terutama saat bulan Ramadan, banyak orang mencari hidangan berbuka yang lezat dan berkualitas.
@@ -44,6 +44,9 @@ Pada fitur ini pengguna dapat melihat list rekomendasi makanan dan minuman setia
 ### ⭐ Food & Drink Review
 #### Dikerjakan oleh Barli
 Pada fitur ini, pengguna dapat memberi review, rating, atau ulasan tentang suatu makanan atau minuman.
+
+## 🔌Alur Pengintegrasian
+
 
 ## 💾 Dataset
 Dataset yang kami gunakan adalah berikut.<br>
