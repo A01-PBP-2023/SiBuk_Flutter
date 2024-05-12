@@ -25,6 +25,11 @@ Aplikasi ini membantu mengurangi kebingungan dan memastikan pengguna mendapatkan
 Pengguna dapat memberikan ulasan dan rating setelah berbuka sesuai dengan menu yang telah disediakan. Ini membantu pengguna lain dalam memilih makanan atau minuman yang berkualitas.
 
 ## 📃 Daftar Modul
+
+### 🍽️ Home
+#### Dikerjakan oleh Eagel
+Pada halama ini pengguna dapat melihat list rekomendasi makanan dan minuman setiap harinya. Rekomendasi makanan dan minuman akan ditampilkan pada halaman utama dari aplikasi.
+
 ### 😋 Favorite Food & Drink
 #### Dikerjakan oleh Gistella
 Pada fitur ini pengguna dapat menambahkan makanan dan/atau minuman ke dalam list favorit. Pengguna dapat melihat detail makanan dan/atau minuman pada web SiBuk seperti nama makanan ataupun minuman, harganya, dan juga toko yang menjual makanan dan minuman tersebut. Pengguna juga dapat melihat review pengguna lain pada makanan dan minuman yang ada di list Favorite food & drink
@@ -36,10 +41,6 @@ Pada fitur ini pengguna dapat melihat list makanan-makanan yang berupa katalog b
 ### 🍹Drink List
 #### Dikerjakan oleh Nazwa
 Pada fitur ini pengguna dapat melihat list minuman-minuman yang berupa katalog berbentuk card view, pengguna juga dapat melakukan filter rasa seperti asam dan manis pada list minuman. Pengguna nantinya juga dapat melihat halaman detail dari minuman yang dipilihnya dan juga dapat menambahkan minuman-minuman yang dia pilih ke dalam list Favorite Food & Drink.
-
-### 🍽️ Food & Drink Recomendation
-#### Dikerjakan oleh Eagel
-Pada fitur ini pengguna dapat melihat list rekomendasi makanan dan minuman setiap harinya. Rekomendasi makanan dan minuman akan ditampilkan pada laman Home.
 
 ### ⭐ Food & Drink Review
 #### Dikerjakan oleh Barli
