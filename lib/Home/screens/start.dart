@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sibuk_mobile/screens/login.dart';
+import 'package:sibuk_mobile/Home/screens/login.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});

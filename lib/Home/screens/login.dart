@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sibuk_mobile/screens/sibuk_app.dart';
+import 'package:sibuk_mobile/Home/screens/sibuk_app.dart';
 
 void main() {
   runApp(const LoginApp());
