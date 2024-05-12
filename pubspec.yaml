@@ -70,6 +70,8 @@ flutter:
     - assets/images/food-icon.png
     - assets/images/drink-icon.png
     - assets/images/review-icon.png
+    - assets/images/f-grid-icon.png
+    - assets/images/d-grid-icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:sibuk_mobile/widgets/recommended_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, this.name, this.onChangeScreen});
@@ -48,14 +51,13 @@ class _HomePageState extends State<HomePage> {
                     const Text("Let's grab your takjil!")
                   ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(left: 50),
+                Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.black),
                     onPressed: () {},
                     child: const Icon(Icons.logout),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -70,13 +72,14 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const SizedBox(height: 10,),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Text(
                         "Explore Catalogue",
                         textAlign: TextAlign.start,
@@ -84,7 +87,9 @@ class _HomePageState extends State<HomePage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -155,8 +160,22 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 40, top: 30, bottom: 15),
+                    width: double.infinity,
+                    child:  const Text(
+                      "Recomendation",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 40, right: 40),
+                    child: const Align(
+                        alignment: Alignment.centerLeft,
+                        child: RecommendedList()),
                   )
-                
                 ],
               )),
         ],

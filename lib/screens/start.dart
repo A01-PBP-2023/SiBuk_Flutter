@@ -27,7 +27,10 @@ class StartPage extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.center,
-            child: Image.asset("assets/images/food.png"),
+            child: Image.asset(
+              "assets/images/food.png",
+              
+            ),
           ),
           const SizedBox(
             height: 10,
@@ -46,13 +49,20 @@ class StartPage extends StatelessWidget {
                 ),
                 Text(
                   "Find the taste of the most popular iftar foods and drinks from anywhere and anytime",
-                  style: GoogleFonts.arsenal(color: Colors.white, fontSize: 16),
+                  style: GoogleFonts.arsenal(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
                 )
               ],
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+            padding: const EdgeInsets.only(
+              left: 30,
+              right: 30,
+              top: 10,
+            ),
             margin: const EdgeInsets.only(top: 10),
             child: SizedBox(
               width: double.infinity,
@@ -66,7 +76,8 @@ class StartPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
                     );
                   },
                   icon: const Icon(Icons.arrow_back),
