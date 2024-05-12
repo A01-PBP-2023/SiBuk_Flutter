@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sibuk_mobile/models/food.dart';
+import 'package:dart_casing/dart_casing.dart';
 import 'dart:convert';
 
 class RecommendedList extends StatefulWidget {
@@ -60,7 +60,7 @@ class _RecommendedListState extends State<RecommendedList> {
             } else {
               return SizedBox(
                 width: double.infinity,
-                height: 400,
+                height: 300,
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -71,15 +71,28 @@ class _RecommendedListState extends State<RecommendedList> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset("assets/images/f-grid-icon.png", width: 200,),
+                        Image.asset(
+                          "assets/images/f-grid-icon.png",
+                          width: 200,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Text(
-                          "${snapshot.data![index].fields.product}",
+                          Casing.titleCase(
+                              "${snapshot.data![index].fields.product}"),
                           style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.black),
                         ),
-                        
+                        Text(
+                          Casing.titleCase(
+                              "${snapshot.data![index].fields.merchantArea}"),
+                        ),
+                        Text(Casing.titleCase(
+                           "${snapshot.data![index].fields.merchantName}")
+                        )
                       ],
                     ),
                   ),
