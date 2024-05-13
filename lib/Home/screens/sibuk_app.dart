@@ -12,7 +12,7 @@ class SibukPage extends StatefulWidget {
 }
 
 class _SibukPageState extends State<SibukPage> {
-  var screenNow = 0;
+  var screenNow = 2;
   changeScreen(int screen) {
     setState(() {
       screenNow = screen;

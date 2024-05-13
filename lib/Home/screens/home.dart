@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sibuk_mobile/Home/widgets/recommended_list.dart';
-import 'package:sibuk_mobile/Foods/screens/food.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:sibuk_mobile/Home/screens/login.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, this.name, this.onChangeScreen});
@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -55,7 +56,31 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: TextButton(
                     style: TextButton.styleFrom(foregroundColor: Colors.black),
-                    onPressed: () {},
+                    onPressed: () async {
+                      final response = await request.logout(
+                        "http://10.0.2.2:8000/user_auth/logout-flutter/",
+                      );
+                      String message = response["message"];
+                      if (context.mounted) {
+                        if (response['status']) {
+                          String uname = response["username"];
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("$message Sampai jumpa, $uname."),
+                          ));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(message),
+                            ),
+                          );
+                        }
+                      }
+                    },
                     child: const Icon(Icons.logout),
                   ),
                 ),
@@ -96,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: () => {widget.onChangeScreen!(1)},
+                            onTap: () => {widget.onChangeScreen!(0)},
                             child: Column(
                               children: [
                                 Container(
@@ -107,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   child: Image.asset(
                                     "assets/images/food-icon.png",
-                                    width: 75,
+                                    width: 65,
                                   ),
                                 ),
                                 const Text("Food")
@@ -118,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                             width: 20,
                           ),
                           InkWell(
-                            onTap: () => {widget.onChangeScreen!(2)},
+                            onTap: () => {widget.onChangeScreen!(1)},
                             child: Column(
                               children: [
                                 Container(
@@ -129,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   child: Image.asset(
                                     "assets/images/drink-icon.png",
-                                    width: 75,
+                                    width: 65,
                                   ),
                                 ),
                                 const Text("Drink")
@@ -150,8 +175,30 @@ class _HomePageState extends State<HomePage> {
                                         const Color.fromRGBO(241, 243, 247, 1),
                                   ),
                                   child: Image.asset(
+                                    "assets/images/favorite-icon.png",
+                                    width: 65,
+                                  ),
+                                ),
+                                const Text("Reviews")
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          InkWell(
+                            onTap: () => {widget.onChangeScreen!(4)},
+                            child: Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color:
+                                        const Color.fromRGBO(241, 243, 247, 1),
+                                  ),
+                                  child: Image.asset(
                                     "assets/images/review-icon.png",
-                                    width: 75,
+                                    width: 65,
                                   ),
                                 ),
                                 const Text("Reviews")
@@ -164,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                     margin:
-                        const EdgeInsets.only(left: 50, top: 30, bottom: 15),
+                        const EdgeInsets.only(left: 30, top: 30, bottom: 15),
                     width: double.infinity,
                     child: const Text(
                       "Recomendation",

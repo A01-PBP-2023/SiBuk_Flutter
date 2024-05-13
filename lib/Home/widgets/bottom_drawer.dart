@@ -26,16 +26,20 @@ class _BottomDrawerState extends State<BottomDrawer> {
       selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: "Home",
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.breakfast_dining),
           label: "Foods",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.local_drink),
           label: "Drinks",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: "Home",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: "Favorites",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.star),

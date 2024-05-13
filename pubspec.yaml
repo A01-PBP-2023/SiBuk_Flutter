@@ -71,6 +71,7 @@ flutter:
     - assets/images/food-icon.png
     - assets/images/drink-icon.png
     - assets/images/review-icon.png
+    - assets/images/favorite-icon.png
     - assets/images/f-grid-icon.png
     - assets/images/d-grid-icon.png
     - assets/images/deco.png
