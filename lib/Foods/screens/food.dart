@@ -4,14 +4,14 @@ import 'package:sibuk_mobile/models/food.dart';
 import 'package:dart_casing/dart_casing.dart';
 import 'dart:convert';
 
-class RecommendedList extends StatefulWidget {
-  const RecommendedList({super.key});
+class FoodList extends StatefulWidget {
+  const FoodList({super.key});
 
   @override
-  State<RecommendedList> createState() => _RecommendedListState();
+  State<FoodList> createState() => _FoodListState();
 }
 
-class _RecommendedListState extends State<RecommendedList> {
+class _FoodListState extends State<FoodList> {
   Future<List<Food>> fetchFood() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse('http://127.0.0.1:8000/api/foods/json/');
@@ -25,15 +25,9 @@ class _RecommendedListState extends State<RecommendedList> {
 
     // melakukan konversi data json menjadi object Food
     List<Food> listFood = [];
-    // for (var d in data) {
-    //   if (d != null) {
-    //     listFood.add(Food.fromJson(d));
-    //   }
-    // }
-
-    for (var i = 0; i < 5; i++) {
-      if (data != null) {
-        listFood.add(Food.fromJson(data[i]));
+    for (var d in data) {
+      if (d != null) {
+        listFood.add(Food.fromJson(d));
       }
     }
     return listFood;

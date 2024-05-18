@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sibuk_mobile/Home/widgets/recommended_list.dart';
+import 'package:sibuk_mobile/Foods/screens/food.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, this.name, this.onChangeScreen});
@@ -162,9 +163,10 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   Container(
-                    margin: const EdgeInsets.only(left: 50, top: 30, bottom: 15),
+                    margin:
+                        const EdgeInsets.only(left: 50, top: 30, bottom: 15),
                     width: double.infinity,
-                    child:  const Text(
+                    child: const Text(
                       "Recomendation",
                       textAlign: TextAlign.start,
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -176,7 +178,10 @@ class _HomePageState extends State<HomePage> {
                         alignment: Alignment.centerLeft,
                         child: RecommendedList()),
                   ),
-                  Image.asset("assets/images/deco.png", width: 200,),
+                  Image.asset(
+                    "assets/images/deco.png",
+                    width: 200,
+                  ),
                   const SizedBox(
                     height: 50,
                   )
