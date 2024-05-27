@@ -57,7 +57,7 @@ class _FoodListState extends State<FoodList> {
                 height: 300,
                 child: ListView.builder(
                   shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
+                  scrollDirection: Axis.vertical,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (_, index) => Container(
                     margin: const EdgeInsets.only(right: 10),
@@ -72,21 +72,26 @@ class _FoodListState extends State<FoodList> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          Casing.titleCase(
-                              "${snapshot.data![index].fields.product}"),
-                          style: const TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                        SizedBox(
+                          width: 100,
+                          child: RichText(
+                            overflow: TextOverflow.ellipsis,
+                            text: TextSpan(
+                              text: Casing.titleCase(
+                                  "${snapshot.data![index].fields.product}"),
+                              style: const TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                          ),
                         ),
                         Text(
                           Casing.titleCase(
                               "${snapshot.data![index].fields.merchantArea}"),
                         ),
                         Text(Casing.titleCase(
-                           "${snapshot.data![index].fields.merchantName}")
-                        )
+                            "${snapshot.data![index].fields.merchantName}"))
                       ],
                     ),
                   ),

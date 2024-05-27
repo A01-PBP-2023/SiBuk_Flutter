@@ -18,13 +18,18 @@ class _SibukPageState extends State<SibukPage> {
       screenNow = screen;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screenNow == 0 ? HomePage(
-        name: widget.name,
-        onChangeScreen: changeScreen,
-      ) : screenNow == 1 ? const FoodList() : const Text("No Screen added yet"),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(0, 134, 47, 1),
+        ),
+        child: screenNow == 2 ? HomePage(onChangeScreen: changeScreen, name: widget.name,) : screenNow == 0 ? const FoodList() : const Text("This is Screen"),
+      ),
       bottomNavigationBar: BottomDrawer(
         currentScreen: screenNow,
         onChangeScreen: changeScreen,
