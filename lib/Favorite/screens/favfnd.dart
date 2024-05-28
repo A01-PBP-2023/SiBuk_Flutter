@@ -32,8 +32,6 @@ class _FavFoodListState extends State<FavFoodList> {
         listFood.add(Food.fromJson(data[i]));
       }
     }
-
-    print(data);
     return listFood;
   }
 

@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:sibuk_mobile/models/food.dart';
-import 'package:dart_casing/dart_casing.dart';
+import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:math';
+import 'package:dart_casing/dart_casing.dart';
 
-class RecommendedList extends StatefulWidget {
-  const RecommendedList({super.key});
+
+
+
+
+class FoodDetail extends StatefulWidget {
+  const FoodDetail({super.key, required this.pk});
+  final int? pk;
 
   @override
-  State<RecommendedList> createState() => _RecommendedListState();
+  State<FoodDetail> createState() => _FoodDetailState();
 }
 
-class _RecommendedListState extends State<RecommendedList> {
+class _FoodDetailState extends State<FoodDetail> {
   Future<List<Food>> fetchFood() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-    var url = Uri.parse('http://10.0.2.2:8000/api/foods/json/');
+    var url = Uri.parse('http://10.0.2.2:8000/api/foods/get_food/${widget.pk}');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -26,17 +30,15 @@ class _RecommendedListState extends State<RecommendedList> {
 
     // melakukan konversi data json menjadi object Food
     List<Food> listFood = [];
-    // for (var d in data) {
-    //   if (d != null) {
-    //     listFood.add(Food.fromJson(d));
-    //   }
-    // }
-    for (int i = 0; i < 10; i++) {
-      listFood.add(Food.fromJson(data[Random().nextInt(99)]));
+    for (var d in data) {
+      if (d != null) {
+        listFood.add(Food.fromJson(d));
+      }
     }
-
     return listFood;
   }
+
+
 
   @override
   Widget build(BuildContext context) {
