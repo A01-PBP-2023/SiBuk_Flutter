@@ -4,10 +4,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dart_casing/dart_casing.dart';
 
-
-
-
-
 class FoodDetail extends StatefulWidget {
   const FoodDetail({super.key, required this.pk});
   final int? pk;
@@ -38,8 +34,6 @@ class _FoodDetailState extends State<FoodDetail> {
     return listFood;
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -59,86 +53,123 @@ class _FoodDetailState extends State<FoodDetail> {
                 ],
               );
             } else {
-              return SizedBox(
-                width: double.infinity,
-                height: 290,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (_, index) => Container(
-                    margin: const EdgeInsets.only(right: 10),
+              return Scaffold(
+                body: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Color.fromRGBO(0, 134, 47, 1),
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
                     decoration: const BoxDecoration(
-                        color: Color.fromRGBO(245, 255, 235, 1)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        (snapshot.data![index].fields.category == "Nasi"
-                            ? Image.asset(
-                                "assets/images/category_icon_no_bg/rice.png",
-                                width: 200,
-                              )
-                            : snapshot.data![index].fields.category == "Mie"
-                                ? Image.asset(
-                                    "assets/images/category_icon_no_bg/noodle.png",
-                                    width: 200,
-                                  )
-                                : snapshot.data![index].fields.category ==
-                                        "Snack"
-                                    ? Image.asset(
-                                        "assets/images/category_icon_no_bg/snack.png",
-                                        width: 200,
-                                      )
-                                    : Image.asset(
-                                        "assets/images/category_icon_no_bg/other.png",
-                                        width: 200,
-                                      )),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 150,
-                                child: RichText(
-                                  overflow: TextOverflow.ellipsis,
-                                  text: TextSpan(
-                                    text: Casing.titleCase(
-                                        "${snapshot.data![index].fields.product}"),
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.green[600]),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                Casing.titleCase(
-                                    snapshot.data![index].fields.merchantArea),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                Casing.titleCase(
-                                    "${snapshot.data![index].fields.merchantName}"),
-                                style: const TextStyle(
-                                  fontSize: 13
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
+                    child: Stack(children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)),
+                            child: Image.asset(
+                              (snapshot.data[0].fields.category == "Nasi"
+                                  ? "assets/images/category_icon/rice_icon.png"
+                                  : snapshot.data[0].fields.category == "Mie"
+                                      ? "assets/images/category_icon/noodle_icon.png"
+                                      : snapshot.data[0].fields.category ==
+                                              "Snack"
+                                          ? "assets/images/category_icon/snack_icon.png"
+                                          : "assets/images/category_icon/other_icon.png"),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 20, top: 20),
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              color: Color.fromRGBO(219, 255, 183, 1),
+                            ),
+                            child: Text(
+                              snapshot.data[0].fields.category,
+                              style: TextStyle(
+                                  color: Colors.green[800], fontSize: 16),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15, left: 15),
+                            child: Text(
+                              Casing.titleCase(snapshot.data[0].fields.product),
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Text(
+                              Casing.titleCase(
+                                  snapshot.data[0].fields.merchantArea),
+                              style: const TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, left: 15),
+                            child: Text(
+                              snapshot.data[0].fields.merchantName,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, left: 15),
+                            child: Text(
+                              snapshot.data[0].fields.description,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                      Positioned(
+                        top: 15,
+                        left: 15,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const BackButton(),
+                        ),
+                      ),
+                    ]),
                   ),
                 ),
               );
             }
           }
         });
+  }
+}
+
+class BackButton extends StatelessWidget {
+  const BackButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(100)),
+        color: Colors.white,
+      ),
+      width: 50,
+      height: 50,
+      child: const Icon(Icons.arrow_back),
+    );
   }
 }

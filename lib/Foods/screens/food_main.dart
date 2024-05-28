@@ -6,21 +6,27 @@ class FoodMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-       margin: const EdgeInsets.all(10),
-       decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(10),
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(0, 134, 47, 1),
         ),
-      ),
-      child: const SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text("This is search box"),
-            FoodList()
-          ],
+        child: Container(
+          margin: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          child: const SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [Text("This is filter box"), FoodList()],
+            ),
+          ),
         ),
       ),
     );

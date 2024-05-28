@@ -22,13 +22,17 @@ class _SibukPageState extends State<SibukPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          color: Color.fromRGBO(0, 134, 47, 1),
-        ),
-        child: screenNow == 2 ? HomePage(onChangeScreen: changeScreen, name: widget.name,) : screenNow == 0 ? const FoodMain() : const Text("This is Screen"),
+      body: Stack(
+        children: [
+            Offstage(
+              offstage: screenNow != 0,
+              child: TickerMode(enabled: screenNow == 0, child: const MaterialApp(home: FoodMain())),
+            ),
+            Offstage(
+              offstage: screenNow != 2,
+              child: TickerMode(enabled: screenNow == 2, child: MaterialApp(home: HomePage(onChangeScreen: changeScreen, name: widget.name,))),
+            ),
+        ],
       ),
       bottomNavigationBar: BottomDrawer(
         currentScreen: screenNow,
