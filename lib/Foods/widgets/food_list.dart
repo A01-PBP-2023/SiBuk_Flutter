@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sibuk_mobile/Foods/screens/food_detail.dart';
-import 'package:sibuk_mobile/models/food.dart';
+import 'package:sibuk_mobile/Foods/models/food.dart';
 import 'package:dart_casing/dart_casing.dart';
 import 'dart:convert';
 
@@ -69,7 +69,7 @@ class _FoodListState extends State<FoodList> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => FoodDetail(
-                            pk: snapshot.data![index].pk,
+                            food: snapshot.data![index],
                           ),
                         ));
                   },

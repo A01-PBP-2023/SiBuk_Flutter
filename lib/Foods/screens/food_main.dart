@@ -24,7 +24,10 @@ class FoodMain extends StatelessWidget {
           child: const SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: [Text("This is filter box"), FoodList()],
+              children: [
+                Text("Food Catalogue"),
+                FoodList(),
+              ],
             ),
           ),
         ),
