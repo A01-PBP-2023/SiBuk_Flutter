@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sibuk_mobile/Foods/widgets/food_list.dart';
+import 'package:sibuk_mobile/Drinks/widgets/drink_list.dart';
 
-class FoodMain extends StatelessWidget {
-  const FoodMain({super.key});
+class DrinkMain extends StatelessWidget {
+  const DrinkMain({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class FoodMain extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                FoodList(),
+                DrinkList(),
               ],
             ),
           ),

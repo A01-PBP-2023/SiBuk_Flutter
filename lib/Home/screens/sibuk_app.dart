@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sibuk_mobile/Home/screens/home.dart';
 import 'package:sibuk_mobile/Home/widgets/bottom_drawer.dart';
 import 'package:sibuk_mobile/Foods/screens/food_main.dart';
+import 'package:sibuk_mobile/Drinks/screens/drink_main.dart';
 
 class SibukPage extends StatefulWidget {
   const SibukPage({super.key, this.name});
@@ -27,6 +28,10 @@ class _SibukPageState extends State<SibukPage> {
             Offstage(
               offstage: screenNow != 0,
               child: TickerMode(enabled: screenNow == 0, child: const MaterialApp(home: FoodMain())),
+            ),
+            Offstage(
+              offstage: screenNow != 1,
+              child: TickerMode(enabled: screenNow == 1, child: const MaterialApp(home: DrinkMain())),
             ),
             Offstage(
               offstage: screenNow != 2,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sibuk_mobile/Foods/models/food.dart';
+import 'package:sibuk_mobile/Drinks/models/drink.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dart_casing/dart_casing.dart';
@@ -8,34 +8,18 @@ import 'package:sibuk_mobile/Foods/widgets/back_btn.dart';
 
 
 
-class FoodDetail extends StatefulWidget {
-  const FoodDetail({super.key, required this.food});
-  final Food food;
+class DrinkDetail extends StatefulWidget {
+  const DrinkDetail({super.key, required this.drink});
+  final Drink drink;
 
   @override
-  State<FoodDetail> createState() => _FoodDetailState();
+  State<DrinkDetail> createState() => _DrinkDetailState();
 }
 
-class _FoodDetailState extends State<FoodDetail> {
+class _DrinkDetailState extends State<DrinkDetail> {
 
 
-  Future<void> sendFavoriteItem(int foodId) async {
-  final apiUrl = Uri.parse("http://10.0.2.2:8000/api/foods/add_to_fav_flutter/$foodId/");
-    var response = await http.post(apiUrl,
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-            "pk": widget.food.pk
-        }));
-    if (response.statusCode == 201) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Successfully add to favorite!"),
-      ));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Failed to create post!"),
-      ));
-    }
-  }
+  
 
 
   @override
@@ -62,13 +46,9 @@ class _FoodDetailState extends State<FoodDetail> {
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10)),
                   child: Image.asset(
-                    (widget.food.fields.category == "Nasi"
-                        ? "assets/images/category_icon/rice_icon.png"
-                        : widget.food.fields.category == "Mie"
-                            ? "assets/images/category_icon/noodle_icon.png"
-                            : widget.food.fields.category == "Snack"
-                                ? "assets/images/category_icon/snack_icon.png"
-                                : "assets/images/category_icon/other_icon.png"),
+                    (widget.drink.fields.category == "Kopi"
+                        ? "assets/images/category_icon/coffee_icon.png"
+                                : "assets/images/category_icon/non_coffee_icon.png"),
                   ),
                 ),
                 Container(
@@ -79,14 +59,14 @@ class _FoodDetailState extends State<FoodDetail> {
                     color: Color.fromRGBO(219, 255, 183, 1),
                   ),
                   child: Text(
-                    widget.food.fields.category,
+                    widget.drink.fields.category,
                     style: TextStyle(color: Colors.green[800], fontSize: 16),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15, left: 15),
                   child: Text(
-                    Casing.titleCase(widget.food.fields.product),
+                    Casing.titleCase(widget.drink.fields.product),
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -96,7 +76,7 @@ class _FoodDetailState extends State<FoodDetail> {
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: Text(
-                    Casing.titleCase(widget.food.fields.merchantArea),
+                    Casing.titleCase(widget.drink.fields.merchantArea),
                     style: const TextStyle(
                       fontSize: 16,
                     ),
@@ -105,14 +85,14 @@ class _FoodDetailState extends State<FoodDetail> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10, left: 15),
                   child: Text(
-                    widget.food.fields.merchantName,
+                    widget.drink.fields.merchantName,
                     style: const TextStyle(fontSize: 14),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, left: 15),
                   child: Text(
-                    widget.food.fields.description,
+                    widget.drink.fields.description,
                     style: const TextStyle(fontSize: 14),
                   ),
                 ),
@@ -121,7 +101,7 @@ class _FoodDetailState extends State<FoodDetail> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8, top: 10),
                     child: ElevatedButton.icon(
-                      onPressed: () async {sendFavoriteItem(widget.food.pk.toInt());},
+                      onPressed: () {},
                       icon: const Icon(Icons.favorite),
                       label: const Text("Add to favorite"),
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent, foregroundColor: Colors.white),
