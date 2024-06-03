@@ -13,7 +13,6 @@ class FavFoodList extends StatefulWidget {
 
 class _FavFoodListState extends State<FavFoodList> {
   Future<List<Food>> fetchFood() async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse('http://10.0.2.2:8000/favorites/json/');
     var response = await http.get(
       url,
@@ -32,8 +31,6 @@ class _FavFoodListState extends State<FavFoodList> {
         listFood.add(Food.fromJson(data[i]));
       }
     }
-
-    print(data);
     return listFood;
   }
 

@@ -1,32 +1,32 @@
 // To parse this JSON data, do
 //
-//     final food = foodFromJson(jsonString);
+//     final drink = drinkFromJson(jsonString);
 
 import 'dart:convert';
 
-List<Food> foodFromJson(String str) => List<Food>.from(json.decode(str).map((x) => Food.fromJson(x)));
+List<Drink> drinkFromJson(String str) => List<Drink>.from(json.decode(str).map((x) => Drink.fromJson(x)));
 
-String foodToJson(List<Food> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String drinkToJson(List<Drink> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Food {
-    Model model;
+class Drink {
+    String model;
     int pk;
     Fields fields;
 
-    Food({
+    Drink({
         required this.model,
         required this.pk,
         required this.fields,
     });
 
-    factory Food.fromJson(Map<String, dynamic> json) => Food(
-        model: modelValues.map[json["model"]]!,
+    factory Drink.fromJson(Map<String, dynamic> json) => Drink(
+        model: json["model"],
         pk: json["pk"],
         fields: Fields.fromJson(json["fields"]),
     );
 
     Map<String, dynamic> toJson() => {
-        "model": modelValues.reverse[model],
+        "model": model,
         "pk": pk,
         "fields": fields.toJson(),
     };
@@ -62,25 +62,4 @@ class Fields {
         "product": product,
         "description": description,
     };
-}
-
-
-enum Model {
-    FOODS_FOOD
-}
-
-final modelValues = EnumValues({
-    "foods.food": Model.FOODS_FOOD
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-            reverseMap = map.map((k, v) => MapEntry(v, k));
-            return reverseMap;
-    }
 }

@@ -72,9 +72,19 @@ flutter:
     - assets/images/drink-icon.png
     - assets/images/review-icon.png
     - assets/images/favorite-icon.png
-    - assets/images/f-grid-icon.png
-    - assets/images/d-grid-icon.png
-    - assets/images/deco.png
+    - assets/images/category_icon/rice_icon.png
+    - assets/images/category_icon/snack_icon.png
+    - assets/images/category_icon/noodle_icon.png
+    - assets/images/category_icon/other_icon.png
+    - assets/images/category_icon/coffee_icon.png
+    - assets/images/category_icon/non_coffee_icon.png
+    - assets/images/category_icon_no_bg/rice.png
+    - assets/images/category_icon_no_bg/snack.png
+    - assets/images/category_icon_no_bg/noodle.png
+    - assets/images/category_icon_no_bg/other.png
+    - assets/images/category_icon_no_bg/coffee.png
+    - assets/images/category_icon_no_bg/non_coffee.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -99,5 +109,6 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

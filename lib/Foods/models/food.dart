@@ -33,9 +33,9 @@ class Food {
 }
 
 class Fields {
-    MerchantArea merchantArea;
+    String merchantArea;
     String merchantName;
-    Category category;
+    String category;
     String product;
     String description;
 
@@ -48,49 +48,22 @@ class Fields {
     });
 
     factory Fields.fromJson(Map<String, dynamic> json) => Fields(
-        merchantArea: merchantAreaValues.map[json["merchant_area"]]!,
+        merchantArea: json["merchant_area"],
         merchantName: json["merchant_name"],
-        category: categoryValues.map[json["category"]]!,
+        category: json["category"],
         product: json["product"],
         description: json["description"],
     );
 
     Map<String, dynamic> toJson() => {
-        "merchant_area": merchantAreaValues.reverse[merchantArea],
+        "merchant_area": merchantArea,
         "merchant_name": merchantName,
-        "category": categoryValues.reverse[category],
+        "category": category,
         "product": product,
         "description": description,
     };
 }
 
-enum Category {
-    ANEKA_NASI_MINUMAN_BARAT,
-    KOPI_MINUMAN_ROTI,
-    LAINNYA,
-    MIE,
-    NASI,
-    SNACK
-}
-
-final categoryValues = EnumValues({
-    "Aneka nasi/Minuman/Barat": Category.ANEKA_NASI_MINUMAN_BARAT,
-    "Kopi/Minuman/Roti": Category.KOPI_MINUMAN_ROTI,
-    "Lainnya": Category.LAINNYA,
-    "Mie": Category.MIE,
-    "Nasi": Category.NASI,
-    "Snack": Category.SNACK
-});
-
-enum MerchantArea {
-    JAKARTA,
-    MEDAN
-}
-
-final merchantAreaValues = EnumValues({
-    "jakarta": MerchantArea.JAKARTA,
-    "medan": MerchantArea.MEDAN
-});
 
 enum Model {
     FOODS_FOOD

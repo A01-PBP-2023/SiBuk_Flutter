@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sibuk_mobile/Home/screens/home.dart';
 import 'package:sibuk_mobile/Home/widgets/bottom_drawer.dart';
-import 'package:sibuk_mobile/Foods/screens/food.dart';
+import 'package:sibuk_mobile/Foods/screens/food_main.dart';
+import 'package:sibuk_mobile/Drinks/screens/drink_main.dart';
 
 class SibukPage extends StatefulWidget {
   const SibukPage({super.key, this.name});
@@ -22,13 +23,21 @@ class _SibukPageState extends State<SibukPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          color: Color.fromRGBO(0, 134, 47, 1),
-        ),
-        child: screenNow == 2 ? HomePage(onChangeScreen: changeScreen, name: widget.name,) : screenNow == 0 ? const FoodList() : const Text("This is Screen"),
+      body: Stack(
+        children: [
+            Offstage(
+              offstage: screenNow != 0,
+              child: TickerMode(enabled: screenNow == 0, child: const MaterialApp(home: FoodMain())),
+            ),
+            Offstage(
+              offstage: screenNow != 1,
+              child: TickerMode(enabled: screenNow == 1, child: const MaterialApp(home: DrinkMain())),
+            ),
+            Offstage(
+              offstage: screenNow != 2,
+              child: TickerMode(enabled: screenNow == 2, child: MaterialApp(home: HomePage(onChangeScreen: changeScreen, name: widget.name,))),
+            ),
+        ],
       ),
       bottomNavigationBar: BottomDrawer(
         currentScreen: screenNow,

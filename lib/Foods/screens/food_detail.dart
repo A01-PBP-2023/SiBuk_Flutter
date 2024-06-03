@@ -1,0 +1,143 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:sibuk_mobile/Foods/models/food.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:dart_casing/dart_casing.dart';
+import 'package:sibuk_mobile/Foods/widgets/back_btn.dart';
+
+
+
+class FoodDetail extends StatefulWidget {
+  const FoodDetail({super.key, required this.food});
+  final Food food;
+
+  @override
+  State<FoodDetail> createState() => _FoodDetailState();
+}
+
+class _FoodDetailState extends State<FoodDetail> {
+
+
+  Future<void> sendFavoriteItem(int foodId) async {
+  final apiUrl = Uri.parse("http://10.0.2.2:8000/api/foods/add_to_fav_flutter/$foodId/");
+    var response = await http.post(apiUrl,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode({
+            "pk": widget.food.pk
+        }));
+    if (response.statusCode == 201) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Successfully add to favorite!"),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Failed to create post!"),
+      ));
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+     return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(0, 134, 47, 1),
+        ),
+        child: Container(
+          margin: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Stack(children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
+                  child: Image.asset(
+                    (widget.food.fields.category == "Nasi"
+                        ? "assets/images/category_icon/rice_icon.png"
+                        : widget.food.fields.category == "Mie"
+                            ? "assets/images/category_icon/noodle_icon.png"
+                            : widget.food.fields.category == "Snack"
+                                ? "assets/images/category_icon/snack_icon.png"
+                                : "assets/images/category_icon/other_icon.png"),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 20, top: 20),
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    color: Color.fromRGBO(219, 255, 183, 1),
+                  ),
+                  child: Text(
+                    widget.food.fields.category,
+                    style: TextStyle(color: Colors.green[800], fontSize: 16),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15, left: 15),
+                  child: Text(
+                    Casing.titleCase(widget.food.fields.product),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Text(
+                    Casing.titleCase(widget.food.fields.merchantArea),
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 15),
+                  child: Text(
+                    widget.food.fields.merchantName,
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 15),
+                  child: Text(
+                    widget.food.fields.description,
+                    style: const TextStyle(fontSize: 14),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8, top: 10),
+                    child: ElevatedButton.icon(
+                      onPressed: () async {sendFavoriteItem(widget.food.pk.toInt());},
+                      icon: const Icon(Icons.favorite),
+                      label: const Text("Add to favorite"),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent, foregroundColor: Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const Positioned(
+              top: 15,
+              left: 15,
+              child: BackBtn(),
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+}
