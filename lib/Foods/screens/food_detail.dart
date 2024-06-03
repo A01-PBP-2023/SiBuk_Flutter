@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dart_casing/dart_casing.dart';
 import 'package:sibuk_mobile/Foods/widgets/back_btn.dart';
+import 'package:sibuk_mobile/main.dart';
+
 
 
 
@@ -19,24 +21,7 @@ class FoodDetail extends StatefulWidget {
 class _FoodDetailState extends State<FoodDetail> {
 
 
-  Future<void> sendFavoriteItem(int foodId) async {
-  final apiUrl = Uri.parse("http://10.0.2.2:8000/api/foods/add_to_fav_flutter/$foodId/");
-    var response = await http.post(apiUrl,
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode({
-            "pk": widget.food.pk
-        }));
-    if (response.statusCode == 201) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Successfully add to favorite!"),
-      ));
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Failed to create post!"),
-      ));
-    }
-  }
-
+  
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +106,9 @@ class _FoodDetailState extends State<FoodDetail> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8, top: 10),
                     child: ElevatedButton.icon(
-                      onPressed: () async {sendFavoriteItem(widget.food.pk.toInt());},
+                      onPressed: () {
+                        addToFavorite(context, widget.food.pk);
+                      },
                       icon: const Icon(Icons.favorite),
                       label: const Text("Add to favorite"),
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent, foregroundColor: Colors.white),
@@ -141,3 +128,26 @@ class _FoodDetailState extends State<FoodDetail> {
     );
   }
 }
+
+ Future<void> addToFavorite(BuildContext context, int foodId) async {
+  var userId = UserInfo.data["id"];
+  var url = Uri.parse('http://10.0.2.2:8000/api/foods/add_to_fav_flutter/$foodId/$userId/');
+
+  var requestBody = {"user_id": userId};
+  var response = await http.post(
+    url,
+    headers: {"Content-Type": "application/json"},
+    body: jsonEncode(requestBody),
+  );
+
+  if (context.mounted) {
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Food added successfully to favorite!')));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Failed to add food')));
+    }
+  }
+}
+

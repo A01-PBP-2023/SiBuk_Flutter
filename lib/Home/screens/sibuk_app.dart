@@ -37,6 +37,10 @@ class _SibukPageState extends State<SibukPage> {
               offstage: screenNow != 2,
               child: TickerMode(enabled: screenNow == 2, child: MaterialApp(home: HomePage(onChangeScreen: changeScreen, name: widget.name,))),
             ),
+            // Offstage(
+            //   offstage: screenNow != 3,
+            //   child: TickerMode(enabled: screenNow == 3, child: const MaterialApp(home: FavoriteMain())),
+            // ),
         ],
       ),
       bottomNavigationBar: BottomDrawer(

@@ -12,7 +12,11 @@ class FoodList extends StatefulWidget {
   State<FoodList> createState() => _FoodListState();
 }
 
+
+
+
 class _FoodListState extends State<FoodList> {
+
   Future<List<Food>> fetchFood() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse('http://10.0.2.2:8000/api/foods/json/');
@@ -54,7 +58,7 @@ class _FoodListState extends State<FoodList> {
               );
             } else {
               return GridView.builder(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
