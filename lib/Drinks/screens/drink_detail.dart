@@ -4,22 +4,21 @@ import 'package:sibuk_mobile/Drinks/models/drink.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dart_casing/dart_casing.dart';
-import 'package:sibuk_mobile/Foods/widgets/back_btn.dart';
+import 'package:sibuk_mobile/Base/back_btn.dart';
+import 'package:sibuk_mobile/Base/fav_status.dart';
 import 'package:sibuk_mobile/main.dart';
 
 
 class DrinkDetail extends StatefulWidget {
-  const DrinkDetail({super.key, required this.drink});
+  const DrinkDetail({super.key, required this.drink, required this.isFavorited});
   final Drink drink;
+  final bool isFavorited;
 
   @override
   State<DrinkDetail> createState() => _DrinkDetailState();
 }
 
 class _DrinkDetailState extends State<DrinkDetail> {
-
-
-  
 
 
   @override
@@ -101,11 +100,11 @@ class _DrinkDetailState extends State<DrinkDetail> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8, top: 10),
                     child: ElevatedButton.icon(
-                      onPressed: () {
+                      onPressed: widget.isFavorited == true ? null : () {
                         addToFavorite(context, widget.drink.pk);
                       },
                       icon: const Icon(Icons.favorite),
-                      label: const Text("Add to favorite"),
+                      label: Text((widget.isFavorited == true ? "Already in favorite" : "Add to favorite")),
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.pinkAccent, foregroundColor: Colors.white),
                     ),
                   ),
@@ -117,6 +116,11 @@ class _DrinkDetailState extends State<DrinkDetail> {
               left: 15,
               child: BackBtn(),
             ),
+            Positioned(
+              top: 15,
+              right: 15,
+              child: FavStatus(isFavorited: widget.isFavorited, heightSize: 50, widthSize: 50,),
+            )
           ]),
         ),
       ),
@@ -139,6 +143,8 @@ class _DrinkDetailState extends State<DrinkDetail> {
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Drink added successfully to favorite!')));
+      Navigator.pop(context);
+
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Failed to add food')));

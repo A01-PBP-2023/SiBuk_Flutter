@@ -105,7 +105,6 @@ class _LoginPageState extends State<LoginPage> {
                           });
 
                           if (request.loggedIn) {
-                            String message = response['message'];
                             String uname = response['username'];
                             Map<String, dynamic> data = {
                               "username": response["username"],
@@ -122,14 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                                         )),
                                 (route) => false,
                               );
-                              ScaffoldMessenger.of(context)
-                                ..hideCurrentSnackBar()
-                                ..showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        "$message Selamat datang, $uname."),
-                                  ),
-                                );
+
                             }
                           } else {
                             if (context.mounted) {

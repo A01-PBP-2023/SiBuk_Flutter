@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
   final String? name;
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();  
 }
 
 class _HomePageState extends State<HomePage> {
@@ -66,10 +66,6 @@ class _HomePageState extends State<HomePage> {
                         if (context.mounted) {
                           if (response['status']) {
                             UserInfo.logout();
-                            String uname = response["username"];
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text("$message Sampai jumpa, $uname."),
-                            ));
                             Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginPage()), (route) => false);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
