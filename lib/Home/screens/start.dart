@@ -29,7 +29,6 @@ class StartPage extends StatelessWidget {
             alignment: Alignment.center,
             child: Image.asset(
               "assets/images/food.png",
-              
             ),
           ),
           const SizedBox(
@@ -74,10 +73,11 @@ class StartPage extends StatelessWidget {
                       foregroundColor: Colors.white,
                       backgroundColor: const Color.fromARGB(255, 90, 123, 101)),
                   onPressed: () {
-                    Navigator.pushReplacement(
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const LoginPage()),
+                      (route) => false,
                     );
                   },
                   icon: const Icon(Icons.arrow_back),
