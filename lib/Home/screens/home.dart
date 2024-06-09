@@ -4,6 +4,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sibuk_mobile/Home/screens/login.dart';
 import 'package:sibuk_mobile/main.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key, this.name, this.onChangeScreen});
 
@@ -11,7 +12,7 @@ class HomePage extends StatefulWidget {
   final String? name;
 
   @override
-  State<HomePage> createState() => _HomePageState();  
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -66,7 +67,10 @@ class _HomePageState extends State<HomePage> {
                         if (context.mounted) {
                           if (response['status']) {
                             UserInfo.logout();
-                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LoginPage()), (route) => false);
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()),
+                                (route) => false);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -175,7 +179,7 @@ class _HomePageState extends State<HomePage> {
                                       width: 65,
                                     ),
                                   ),
-                                  const Text("Reviews")
+                                  const Text("Favorites")
                                 ],
                               ),
                             ),
@@ -221,6 +225,25 @@ class _HomePageState extends State<HomePage> {
                           alignment: Alignment.centerLeft,
                           child: RecommendedList()),
                     ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const Text.rich(TextSpan(children: [
+                      WidgetSpan(
+                          child: Icon(
+                        Icons.copyright,
+                        size: 18,
+                        color: Colors.grey,
+                      )),
+                      WidgetSpan(
+                          child: SizedBox(
+                        width: 5,
+                      )),
+                      TextSpan(
+                        text: "Copyright SiBuk. All rights reserved",
+                        style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
+                      )
+                    ]))
                   ],
                 ),
               ),

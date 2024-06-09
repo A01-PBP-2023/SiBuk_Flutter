@@ -133,16 +133,12 @@ class _DrinkListState extends State<DrinkList> {
                   )
                 ],
               ),
-               Positioned(
-                  top: 15,
-                  right: 15,
-                  child: FavStatus(
-                      isFavorited: _favorites
-                          .map((item) => item.fields.product)
-                          .contains(drink.fields.product),
-                      widthSize: 10,
-                      heightSize: 10),
-                )
+              FavStatus(
+                   isFavorited: _favorites
+                       .map((item) => item.fields.product)
+                       .contains(drink.fields.product),
+                   widthSize: 10,
+                   heightSize: 10)
             ]),
           ),
         );

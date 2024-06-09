@@ -9,20 +9,15 @@ class FavStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        print(isFavorited);
-      },
-      child: Container(
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(100)),
-          color: Colors.white,
-        ),
-        width: widthSize,
-        height: heightSize,
-        child: Icon(Icons.favorite, color: isFavorited == true ? Colors.red : Colors.black,),
+    return Container(
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(100)),
+        color: Colors.white,
       ),
+      width: widthSize,
+      height: heightSize,
+      child: Icon(Icons.favorite, color: isFavorited == true ? Colors.red : Colors.grey,),
     );
   }
 }
