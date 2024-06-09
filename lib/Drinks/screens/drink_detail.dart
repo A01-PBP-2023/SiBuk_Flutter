@@ -147,7 +147,7 @@ class _DrinkDetailState extends State<DrinkDetail> {
 
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Failed to add food')));
+          .showSnackBar(const SnackBar(content: Text('Failed to add drink')));
     }
   }
 }

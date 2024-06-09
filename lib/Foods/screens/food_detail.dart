@@ -152,7 +152,7 @@ Future<void> addToFavorite(BuildContext context, int foodId) async {
       Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Failed to add drink')));
+          .showSnackBar(const SnackBar(content: Text('Failed to add food')));
     }
   }
 }
