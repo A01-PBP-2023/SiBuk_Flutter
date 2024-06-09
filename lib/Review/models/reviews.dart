@@ -46,8 +46,8 @@ class Fields {
   });
 
   factory Fields.fromJson(Map<String, dynamic> json) => Fields(
-        product: json["product"].toString(),
-        category: json["category"].toString(),
+        product: json["product"],
+        category: json["category"],
         averageRating: json["average_rating"].toDouble(),
         percentageRating: json["percentage_rating"].toDouble(),
         numReviews: json["num_reviews"],

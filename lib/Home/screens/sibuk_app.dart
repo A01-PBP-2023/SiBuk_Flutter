@@ -4,6 +4,7 @@ import 'package:sibuk_mobile/Home/widgets/bottom_drawer.dart';
 import 'package:sibuk_mobile/Foods/screens/food_main.dart';
 import 'package:sibuk_mobile/Drinks/screens/drink_main.dart';
 import 'package:sibuk_mobile/Favorite/screens/favorite_main.dart';
+import 'package:sibuk_mobile/Review/screens/reviews_main.dart';
 
 class SibukPage extends StatefulWidget {
   const SibukPage({super.key, this.name});
@@ -42,10 +43,10 @@ class _SibukPageState extends State<SibukPage> {
               offstage: screenNow != 3,
               child: TickerMode(enabled: screenNow == 3, child: const MaterialApp(home: FavoriteMain())),
             ),
-            // Offstage(
-            //   offstage: screenNow != 3,
-            //   child: TickerMode(enabled: screenNow == 3, child: const MaterialApp(home: FavoriteMain())),
-            // ),
+            Offstage(
+              offstage: screenNow != 4,
+              child: TickerMode(enabled: screenNow == 4, child: const MaterialApp(home: ReviewMain())),
+          ),
         ],
       ),
       bottomNavigationBar: BottomDrawer(
