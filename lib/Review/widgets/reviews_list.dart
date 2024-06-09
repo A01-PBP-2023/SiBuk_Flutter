@@ -1,0 +1,272 @@
+import 'package:dart_casing/dart_casing.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import 'package:sibuk_mobile/main.dart';
+import 'package:sibuk_mobile/Review/models/reviews.dart';
+import 'package:sibuk_mobile/Foods/models/food.dart';
+import 'package:sibuk_mobile/Foods/screens/food_detail.dart';
+import 'package:sibuk_mobile/Drinks/models/drink.dart';
+import 'package:sibuk_mobile/Drinks/screens/drink_detail.dart';
+
+class ReviewList extends StatefulWidget {
+  const ReviewList({super.key});
+
+  @override
+  State<ReviewList> createState() => _ReviewListState();
+}
+
+class _ReviewListState extends State<ReviewList> {
+  late List<Review> _reviews;
+  late List<Drink> _favoritesDrink;
+  late List<Food> _favoritesFood;
+
+  @override
+  void initState() {
+    super.initState();
+    _reviews = [];
+    _favoritesDrink = [];
+    _favoritesFood = [];
+    fetchFavoritesFood();
+    fetchFavoriteDrink();
+    fetchReviews();
+  }
+
+  Future<void> fetchReviews() async {
+    var url = Uri.parse('http://10.0.2.2:8000/reviews/get_all_reviews_json'); // Update with your API endpoint
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      List<dynamic> body = json.decode(response.body);
+      _reviews = body.map((dynamic item) => reviewFromJson(item)).cast<Review>().toList();
+      setState(() {});
+    } else {
+      throw Exception('Failed to load reviews');
+    }
+  }
+
+  Future<void> fetchFavoriteDrink() async {
+    var userId = UserInfo.data["id"];
+    var url = Uri.parse('http://10.0.2.2:8000/favorites/get-favdrink/$userId/');
+    var response = await http.get(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> body = json.decode(response.body);
+      _favoritesDrink = body.map((dynamic item) => Drink.fromJson(item)).toList();
+      setState(() {});
+    } else {
+      throw Exception('Failed to load drinks');
+    }
+  }
+
+  Future<void> fetchFavoritesFood() async {
+    var userId = UserInfo.data["id"];
+    var url = Uri.parse('http://10.0.2.2:8000/favorites/get-favfood/$userId/');
+    var response = await http.get(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> body = json.decode(response.body);
+      _favoritesFood = body.map((dynamic item) => Food.fromJson(item)).toList();
+      setState(() {});
+    } else {
+      throw Exception('Failed to load foods');
+    }
+  }
+
+  Future<Drink?> fetchDrink(int id) async {
+    var url = Uri.parse('http://10.0.2.2:8000/api/drinks/get_drink/$id');
+    var response = await http.get(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      dynamic body = json.decode(response.body);
+      var drink = body.map((dynamic item) => Drink.fromJson(item));
+      return drink;
+    } else {
+      throw Exception('Failed to load drinks');
+    }
+  }
+
+  Future<Food?> fetchFood(int id) async {
+    var url = Uri.parse('http://10.0.2.2:8000/api/foods/get_food/$id');
+    var response = await http.get(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      dynamic body = json.decode(response.body);
+      var food = Food.fromJson(body);
+      return food;
+    } else {
+      throw Exception('Failed to load foods');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      padding: const EdgeInsets.all(8),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      shrinkWrap: true,
+      primary: false,
+      itemCount: _reviews.length,
+      itemBuilder: (BuildContext context, int index) {
+        Review review = _reviews[index];
+        double rating = review.fields.averageRating;
+
+        return FutureBuilder(
+          future: review.model == "food" ? fetchFood(review.pk) : fetchDrink(review.pk),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              var item = snapshot.data;
+              return InkWell(
+                onTap: () {
+                  if (review.model == "food" && item is Food) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FoodDetail(
+                          food: item,
+                          isFavorited: _favoritesFood
+                              .map((item) => item.fields.product)
+                              .contains(item.fields.product),
+                        ),
+                      ),
+                    ).then((value) => setState(() {
+                      fetchFavoritesFood();
+                    }));
+                  } else if (review.model == "drink" && item is Drink) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DrinkDetail(
+                          drink: item,
+                          isFavorited: _favoritesDrink
+                              .map((item) => item.fields.product)
+                              .contains(item.fields.product),
+                        ),
+                      ),
+                    ).then((value) => setState(() {
+                      fetchFavoriteDrink();
+                    }));
+                  }
+                },
+                child: Container(
+                  decoration: const BoxDecoration(color: Color.fromRGBO(245, 255, 235, 1)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          RatingBarIndicator(
+                            rating: rating,
+                            itemBuilder: (context, index) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            itemCount: 5,
+                            itemSize: 20.0,
+                            direction: Axis.horizontal,
+                          )
+                        ]
+                      ),
+                      if (item is Food) ...[
+                        (item.fields.category == "Nasi"
+                            ? Image.asset(
+                          "assets/images/category_icon_no_bg/rice.png",
+                          width: 120,
+                        )
+                            : item.fields.category == "Mie"
+                            ? Image.asset(
+                          "assets/images/category_icon_no_bg/noodle.png",
+                          width: 120,
+                        )
+                            : item.fields.category == "Snack"
+                            ? Image.asset(
+                          "assets/images/category_icon_no_bg/snack.png",
+                          width: 120,
+                        )
+                            : Image.asset(
+                          "assets/images/category_icon_no_bg/other.png",
+                          width: 120,
+                        )),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 150,
+                              child: RichText(
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  text: Casing.titleCase(item.fields.product),
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green[600]),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ] else if (item is Drink) ...[
+                        (item.fields.category == "Kopi"
+                            ? Image.asset(
+                          "assets/images/category_icon_no_bg/coffee.png",
+                          width: 120,
+                        )
+                            : Image.asset(
+                          "assets/images/category_icon_no_bg/non_coffee.png",
+                          width: 120,
+                        )),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 150,
+                              child: RichText(
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  text: Casing.titleCase(item.fields.product),
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green[600]),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]
+                    ],
+                  ),
+                ),
+              );
+            }
+          },
+        );
+      },
+    );
+  }
+}
