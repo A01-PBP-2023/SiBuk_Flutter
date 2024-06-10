@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sibuk_mobile/Foods/models/food.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,6 +8,8 @@ import 'package:sibuk_mobile/Base/back_btn.dart';
 import 'package:sibuk_mobile/Base/fav_status.dart';
 import 'package:sibuk_mobile/main.dart';
 import 'dart:async';
+import 'package:sibuk_mobile/Review/screens/reviews_form.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 class FoodDetail extends StatefulWidget {
   const FoodDetail({super.key, required this.food, required this.isFavorited});
@@ -18,8 +20,19 @@ class FoodDetail extends StatefulWidget {
   State<FoodDetail> createState() => _FoodDetailState();
 }
 
-class _FoodDetailState extends State<FoodDetail> {  
+class _FoodDetailState extends State<FoodDetail> {
 
+  void _showReviewDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ReviewsForm(
+          itemId: widget.food.pk,
+          contentType: 'food',
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +126,21 @@ class _FoodDetailState extends State<FoodDetail> {
                           foregroundColor: Colors.white),
                     ),
                   ),
-                )
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8, top: 10),
+                    child: ElevatedButton.icon(
+                      onPressed: _showReviewDialog,
+                      icon: const Icon(Icons.rate_review),
+                      label: const Text("Submit Review"),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pinkAccent,
+                          foregroundColor: Colors.white),
+                    ),
+                  ),
+                ),
               ],
             ),
             const Positioned(
@@ -152,7 +179,7 @@ Future<void> addToFavorite(BuildContext context, int foodId) async {
       Navigator.pop(context);
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Failed to add drink')));
+          .showSnackBar(const SnackBar(content: Text('Failed to add food')));
     }
   }
 }
