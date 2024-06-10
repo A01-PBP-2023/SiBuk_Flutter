@@ -136,11 +136,11 @@ class _ReviewListState extends State<ReviewList> {
         }).toList(),
       ),
       GridView.builder(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(4),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
         ),
         shrinkWrap: true,
         primary: false,
@@ -148,6 +148,7 @@ class _ReviewListState extends State<ReviewList> {
         itemBuilder: (BuildContext context, int index) {
           Review review = _reviews[index];
           double rating = review.fields.averageRating;
+          int numReviews = review.fields.numReviews;
           return FutureBuilder(
             future: review.model == "foods.food" ? fetchFood(review.pk) : fetchDrink(review.pk),
             builder: (context, snapshot) {
@@ -197,7 +198,7 @@ class _ReviewListState extends State<ReviewList> {
                       children: [
                         Column(
                           mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             RatingBarIndicator(
                               rating: rating,
@@ -208,8 +209,18 @@ class _ReviewListState extends State<ReviewList> {
                               itemCount: 5,
                               itemSize: 20.0,
                               direction: Axis.horizontal,
-                            )
+                            ),
                           ]
+                        ),
+                        Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                Casing.titleCase("$numReviews reviews"),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ]
                         ),
                         if (item is Food) ...[
                           (item.fields.category == "Nasi"
