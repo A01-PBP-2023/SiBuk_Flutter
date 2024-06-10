@@ -1,12 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sibuk_mobile/Home/screens/sibuk_app.dart';
 import 'package:sibuk_mobile/main.dart';
-
-void main() {
-  runApp(const LoginApp());
-}
 
 class LoginApp extends StatelessWidget {
   const LoginApp({super.key});
@@ -99,11 +96,14 @@ class _LoginPageState extends State<LoginPage> {
                           String password = _passwordController.text;
 
                           final response = await request.login(
-                              "http://10.0.2.2:8000/user_auth/login-flutter/", {
-                            'username': username,
-                            'password': password,
-                          });
-
+                              "http://10.0.2.2:8000/user_auth/login-flutter/",
+                              {
+                                'username': username,
+                                'password': password,
+                              });
+                          if (kDebugMode) {
+                            print("Login response: $response");
+                          }
                           if (request.loggedIn) {
                             String uname = response['username'];
                             Map<String, dynamic> data = {
@@ -121,7 +121,6 @@ class _LoginPageState extends State<LoginPage> {
                                         )),
                                 (route) => false,
                               );
-
                             }
                           } else {
                             if (context.mounted) {
